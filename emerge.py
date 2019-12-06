@@ -2,10 +2,10 @@ import requests
 from os import getenv
 from time import sleep
 
-token = getenv("SLACK_TOKEN")
-if token == None or len(token) == 0:
-    print("ERROR: Please set your SLACK_TOKEN environment variable")
-    exit(1)
+from workspace import SlackWorkspace
+from exceptions import get_users_exception, missing_token
+
+workspace = SlackWorkspace("SLACK_TOKEN")
 
 # List of emails to send to, which we'll lower-case
 emails = ["phil.bambridge@ons.gov.uk"]
@@ -14,10 +14,10 @@ emails = [email.lower() for email in emails]
 # Lookup all members (since we can't do lookupByEmail with our legacy xoxp token)
 response = requests.get(f"https://slack.com/api/users.list?token={token}")
 if response.status_code != 200:
-    print("ERROR: Cannot get list of users on workspace: " + response.text)
+    raise get_users_exception.GetUserException("ERROR: Cannot get list of users on workspace: " + response.text)
 try:
     data = response.json()
-except:
+except Exception as error:
     print("ERROR: Error deserialising JSON from user.list call")
     exit(1)
 
