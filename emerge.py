@@ -7,12 +7,8 @@ from exceptions import get_users_exception, missing_token
 
 workspace = SlackWorkspace("SLACK_TOKEN")
 
-# List of emails to send to, which we'll lower-case
-emails = ["phil.bambridge@ons.gov.uk"]
-emails = [email.lower() for email in emails]
-
 # Lookup all members (since we can't do lookupByEmail with our legacy xoxp token)
-response = requests.get(f"https://slack.com/api/users.list?token={token}")
+response = requests.get(f"https://slack.com/api/users.list?token={workspace.token}")
 if response.status_code != 200:
     raise get_users_exception.GetUserException("ERROR: Cannot get list of users on workspace: " + response.text)
 try:
@@ -40,13 +36,13 @@ for member in data["members"]:
 
         print(f'{member["id"]}: {member["real_name"]}')
 
-        rdata = {"token": token, "users": member["id"]}
+        rdata = {"token": workspace.token, "users": member["id"]}
         response = requests.post("https://slack.com/api/conversations.open", data=rdata)
         data = response.json()
         channel = data["channel"]["id"]
 
         rdata = {
-            "token": token,
+            "token": workspace.token,
             "as_user": True,
             "channel": channel,
             "text": """Example message""",
