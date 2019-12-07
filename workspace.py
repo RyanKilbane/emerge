@@ -10,3 +10,6 @@ class SlackWorkspace:
             raise missing_token.MissingToken("Slack token not found in environment variables")
         elif len(token) == 0:
             raise missing_token.MissingToken("Slack token found, but seems to be empty")
+
+    def get_stuff(self):
+        pass

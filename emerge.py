@@ -3,9 +3,11 @@ from os import getenv
 from time import sleep
 
 from workspace import SlackWorkspace
+from users import Users
 from exceptions import get_users_exception, missing_token
 
 workspace = SlackWorkspace("SLACK_TOKEN")
+users = Users()
 
 # Lookup all members (since we can't do lookupByEmail with our legacy xoxp token)
 response = requests.get(f"https://slack.com/api/users.list?token={workspace.token}")
@@ -29,7 +31,7 @@ for member in data["members"]:
     if (
         member.get("deleted", False) == False
         and member["profile"].get("email", None) != None
-        and member["profile"]["email"].lower() in emails
+        and member["profile"]["email"].lower() in users
     ):
         # Rate limiting - Tier 3 (50+ per minute)
         sleep(1.2)
