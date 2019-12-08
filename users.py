@@ -1,3 +1,4 @@
+import json
 class Users:
     def __init__(self):
         self.users = ["phil.bambridge@ons.gov.uk"]
@@ -13,13 +14,17 @@ class Users:
         return self.users[index]
 
 class UserOperations:
-    def __init__(self, file):
+    def __init__(self, file: str):
         self.file = file
     
-    def export_users(self, users: Users, file_path: str):
+    def export_users(self, users: Users):
         # will write to disk for persistent storage
-        pass
+        with open(self.file, "w") as f:
+            f.write(json.dumps({"users": Users.users}))
 
-    def import_users(self, users: Users, file_path: str):
+    def import_users(self, users: Users):
         # will import yaml of users
-        pass
+        with open(self.file, "r") as f:
+            emails = json.loads(f.read())
+        Users + emails["users"]
+
