@@ -1,6 +1,7 @@
 import requests
 from os import getenv
 from time import sleep
+from concurrent.futures import ThreadPoolExecutor
 
 from workspace import SlackWorkspace
 from users import Users
@@ -25,5 +26,6 @@ if not data["ok"]:
     exit()
 
 print("Found " + len(data["members"]) + "members.")
-
-post_message("test message", data, users, workspace)
+with ThreadPoolExecutor(max_workers=4) as tpe:
+    tpe.map(post_message, ("test message", data, users, workspace))
+    

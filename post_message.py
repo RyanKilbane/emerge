@@ -23,7 +23,7 @@ def post_message(message, data, users: Users, workspace: SlackWorkspace):
                 "token": workspace.token,
                 "as_user": True,
                 "channel": channel,
-                "text": """Example message""",
+                "text": f"""{message}""",
             }
             response = requests.post("https://slack.com/api/chat.postMessage", data=rdata)
             status_code = response.status_code
