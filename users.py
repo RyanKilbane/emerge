@@ -27,4 +27,3 @@ class UserOperations:
         with open(self.file, "r") as f:
             emails = json.loads(f.read())
         Users + emails["users"]
-

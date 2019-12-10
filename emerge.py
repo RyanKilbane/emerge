@@ -12,20 +12,16 @@ workspace = SlackWorkspace("SLACK_TOKEN")
 users = Users()
 
 # Lookup all members (since we can't do lookupByEmail with our legacy xoxp token)
-response = requests.get(f"https://slack.com/api/users.list?token={workspace.token}")
-if response.status_code != 200:
-    raise get_users_exception.GetUserException("ERROR: Cannot get list of users on workspace: " + response.text)
 try:
-    data = response.json()
+    data = workspace.get_users().get_json()
 except Exception as error:
-    print("ERROR: Error deserialising JSON from user.list call")
-    exit(1)
+    print(error)
 
 if not data["ok"]:
     print(data)
     exit()
 
 print("Found " + len(data["members"]) + "members.")
+
 with ThreadPoolExecutor(max_workers=4) as tpe:
     tpe.map(post_message, ("test message", data, users, workspace))
-    
