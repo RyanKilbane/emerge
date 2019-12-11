@@ -26,7 +26,7 @@ class UserOperations:
     def export_users(self, users: Users):
         # will write to disk for persistent storage
         with open(self.file, "w") as f:
-            f.write(json.dumps({"users": Users.users}))
+            f.write(json.dumps({"users": Users}))
 
     def import_users(self, users: Users):
         # will import yaml of users
