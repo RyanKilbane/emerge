@@ -12,6 +12,9 @@ class Users:
 
     def __getitem__(self, index):
         return self.users[index]
+
+    def __len__(self):
+        return len(self.users)
 # Structure of data:
 # {
 #   "users": [EMAIL ADDRESSES]
