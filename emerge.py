@@ -12,7 +12,7 @@ try:
     workspace = SlackWorkspace("SLACK_TOKEN").validate_token()
 except missing_token.MissingToken as error:
     print(error)
-    missing_token.MissingToken.add_token(workspace.token)
+    missing_token.MissingToken.add_token()
 
 users = Users()
 

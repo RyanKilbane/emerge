@@ -18,3 +18,5 @@ class SlackWorkspace:
             raise get_users_exception.GetUserException("ERROR: Cannot get list of users on workspace: " + workspace_users.text)
         return workspace_users
         
+    def post_message(self):
+        pass
