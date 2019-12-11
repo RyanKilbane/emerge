@@ -11,6 +11,7 @@ class SlackWorkspace:
             raise missing_token.MissingToken("Slack token not found in environment variables")
         elif len(self.token) == 0:
             raise missing_token.MissingToken("Slack token found, but seems to be empty")
+        return self
 
     def get_users(self):
         workspace_users = requests.get(f"https://slack.com/api/users.list?token={self.token}")
