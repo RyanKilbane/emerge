@@ -21,7 +21,7 @@ workspace = token()
 users = Users()
 
 try:
-    data = workspace.get_users().get_json()
+    data = workspace.get_users().json()
 except Exception as error:
     print(error)
 
