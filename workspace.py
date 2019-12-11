@@ -5,9 +5,8 @@ from exceptions import missing_token, get_users_exception
 class SlackWorkspace:
     def __init__(self, token_name):
         self.token = getenv(token_name)
-        self._validate_token()
     
-    def _validate_token(self):
+    def validate_token(self):
         if self.token == None:
             raise missing_token.MissingToken("Slack token not found in environment variables")
         elif len(self.token) == 0:

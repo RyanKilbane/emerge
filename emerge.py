@@ -9,14 +9,13 @@ from post_message import post_message
 from exceptions import get_users_exception, missing_token
 
 try:
-    workspace = SlackWorkspace("SLACK_TOKEN")
+    workspace = SlackWorkspace("SLACK_TOKEN").validate_token()
 except missing_token.MissingToken as error:
     print(error)
     missing_token.MissingToken.add_token(workspace.token)
 
 users = Users()
 
-# Lookup all members (since we can't do lookupByEmail with our legacy xoxp token)
 try:
     data = workspace.get_users().get_json()
 except Exception as error:
