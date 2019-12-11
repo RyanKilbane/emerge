@@ -4,7 +4,7 @@ from requests import Response
 from exceptions import missing_token, get_users_exception
 class SlackWorkspace:
     def __init__(self, token_name):
-        self.token = token_name
+        self.token = getenv(token_name)
         self._validate_token()
     
     def _validate_token(self):
@@ -16,6 +16,6 @@ class SlackWorkspace:
     def get_users(self):
         workspace_users = requests.get(f"https://slack.com/api/users.list?token={self.token}")
         if workspace_users.status_code != 200:
-            raise get_users_exception.GetUserException("ERROR: Cannot get list of users on workspace: " + response.text)
+            raise get_users_exception.GetUserException("ERROR: Cannot get list of users on workspace: " + workspace_users.text)
         return workspace_users
         
