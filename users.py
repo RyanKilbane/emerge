@@ -12,7 +12,10 @@ class Users:
 
     def __getitem__(self, index):
         return self.users[index]
-
+# Structure of data:
+# {
+#   "users": [EMAIL ADDRESSES]
+# }
 class UserOperations:
     def __init__(self, file: str):
         self.file = file
