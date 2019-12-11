@@ -8,9 +8,9 @@ from users import Users
 from post_message import post_message
 from exceptions import get_users_exception, missing_token
 
-def token(token_name="SLACK_TOKEN"):
+def token(token_name="SLACK_TOKEN") -> SlackWorkspace:
     try:
-        workspace = SlackWorkspace("SLACK_TOKEN").validate_token()
+        workspace = SlackWorkspace(token_name).validate_token()
     except missing_token.MissingToken as error:
         print(error)
         x = missing_token.MissingToken.add_token()
@@ -18,7 +18,6 @@ def token(token_name="SLACK_TOKEN"):
     return workspace
 
 workspace = token()
-
 users = Users()
 
 try:
