@@ -8,3 +8,4 @@ class MissingToken(Exception):
         token_name = input("Enter token name: ")
         token_value = input("Enter token value: ")
         os.environ[token_name] = token_value
+        return token_name
