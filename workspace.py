@@ -18,6 +18,11 @@ class SlackWorkspace:
         if workspace_users.status_code != 200:
             raise get_users_exception.GetUserException("ERROR: Cannot get list of users on workspace: " + workspace_users.text)
         return workspace_users
+
+    def validate_response(self, json_response):
+        if not json_response["ok"]:
+            raise get_users_exception.GetUserException("There was an error in processing your request: " + json_response["error"])
+        return json_response
         
     def post_message(self):
         pass

@@ -21,13 +21,14 @@ workspace = token()
 users = Users()
 
 try:
-    data = workspace.get_users().json()
+    response = workspace.get_users().json()
 except Exception as error:
     print(error)
 
-if not data["ok"]:
-    print(data)
-    exit()
+try:
+    data = workspace.validate_response(response)
+except get_users_exception.GetUserException as error:
+    print(error)
 
 print("Found " + len(data["members"]) + "members.")
 
