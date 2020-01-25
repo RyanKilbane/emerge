@@ -15,10 +15,12 @@ class Users:
 
     def __len__(self):
         return len(self.users)
+
 # Structure of data:
 # {
 #   "users": [EMAIL ADDRESSES]
 # }
+
 class UserOperations:
     def __init__(self, file: str):
         self.file = file
@@ -26,10 +28,10 @@ class UserOperations:
     def export_users(self, users: Users):
         # will write to disk for persistent storage
         with open(self.file, "w") as f:
-            f.write(json.dumps({"users": Users}))
+            f.write(json.dumps({"users": users}))
 
     def import_users(self, users: Users):
         # will import yaml of users
         with open(self.file, "r") as f:
             emails = json.loads(f.read())
-        Users + emails["users"]
+        users + emails["users"]

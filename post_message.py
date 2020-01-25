@@ -25,6 +25,7 @@ def post_message(message, data, users: Users, workspace: SlackWorkspace):
                 "channel": channel,
                 "text": f"""{message}""",
             }
+            
             response = requests.post("https://slack.com/api/chat.postMessage", data=rdata)
             status_code = response.status_code
             if status_code != 200:
