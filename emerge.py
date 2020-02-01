@@ -5,7 +5,7 @@ from time import sleep
 from concurrent.futures import ThreadPoolExecutor
 
 from workspace import SlackWorkspace
-from users import Users
+from users import Users, UserOperations
 from post_message import post_message
 from exceptions import get_users_exception, missing_token
 
