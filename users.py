@@ -1,7 +1,8 @@
 import json
 class Users:
-    def __init__(self):
-        self.users = ["phil.bambridge@ons.gov.uk"]
+    def __init__(self, input_users=[]):
+        self.users = input_users
+        print(self.users)
 
     def __add__(self, email: (str, list)):
         if isinstance(email, str):
@@ -28,7 +29,7 @@ class UserOperations:
     def export_users(self, users: Users):
         # will write to disk for persistent storage
         with open(self.file, "w") as f:
-            f.write(json.dumps({"users": users}))
+            f.write(json.dumps({"users": users.users}))
 
     def import_users(self, users: Users):
         # will import yaml of users
