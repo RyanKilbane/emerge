@@ -7,3 +7,11 @@ Instead, the approach was to use a legacy token to call for the entire list of u
 ## Environment / config
 
 `SLACK_TOKEN` - The API token beginning "xoxp-" that we use to authenticate to Slack.
+
+## User json Structure
+When loading or dumping users, the data will be in the following structure:
+```json
+{
+    users: [EMAIL ADRESSES]
+}
+```
